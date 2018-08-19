@@ -94,19 +94,81 @@ public class UserSingleton : MonoBehaviour {
 
 	public void FacebookLogin(Action<bool, string> callback, int retryCount = 0)
 	{
-		/* 
-		FB.Login("email", delegate(FBResult result) {
+		CallFBLogin(callback);
+	}
+	 private void CallFBLogin(Action<bool, string> callback)
+	 {
+		//FB.LogInWithReadPermissions(new List<string>() { "public_profile", "user_friends" }, this.HandleResult);
+		  
+		 FB.LogInWithReadPermissions(new List<string>() { "public_profile", "email", "user_friends" }, delegate (ILoginResult result){
+			if(result.Error != null){
+				Debug.Log("Auth Error : " + result.Error);
+			}
+			else{
+				if(FB.IsLoggedIn){
+					Debug.Log("FB Login Result : " + result.ToString());
+					
+					// 페이스북 로그인 결과를 JSON 파싱합니다.
+					var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
+					JSONObject obj = JSONObject.Parse(aToken.ToJson());
+					
+					// 페이스북 기본 정보들을 UserSingleton에 저장합니다.
+					UserSingleton.Instance.FacebookID = obj["user_id"].Str;
+					UserSingleton.Instance.FacebookAccessToken = obj["access_token"].Str;
+					UserSingleton.Instance.FacebookPhotoURL = "http://graph.facebook.com/" + 
+						UserSingleton.Instance.FacebookID + "/picture?type=square";
 
-		});
+					//Debug.Log("UserSingleton.Instance.FacebookAccessToken : " + UserSingleton.Instance.FacebookAccessToken);
+					//Debug.Log("UserSingleton.Instance.FacebookID : " + UserSingleton.Instance.FacebookID);
+					//Debug.Log("UserSingleton.Instance.FacebookPhotoURL : " + UserSingleton.Instance.FacebookPhotoURL);
+
+					callback(true, result.ToString());
+				} else {
+					Debug.Log("User canceled");
+				}
+			}
+		 });
+	 }
+
+	protected void HandleResult(IResult result)
+	{
+		Debug.Log("HandleResult : " + result.ToString());
+		/* 
+		if (result == null)
+		{
+			this.LastResponse = "Null Response\n";
+			LogView.AddLog(this.LastResponse);
+			return;
+		}
+
+		this.LastResponseTexture = null;
+
+		// Some platforms return the empty string instead of null.
+		if (!string.IsNullOrEmpty(result.Error))
+		{
+			this.Status = "Error - Check log for details";
+			this.LastResponse = "Error Response:\n" + result.Error;
+		}
+		else if (result.Cancelled)
+		{
+			this.Status = "Cancelled - Check log for details";
+			this.LastResponse = "Cancelled Response:\n" + result.RawResult;
+		}
+		else if (!string.IsNullOrEmpty(result.RawResult))
+		{
+			this.Status = "Success - Check log for details";
+			this.LastResponse = "Success Response:\n" + result.RawResult;
+		}
+		else
+		{
+			this.LastResponse = "Empty Response\n";
+		}
+
+		LogView.AddLog(result.ToString());
 		*/
 	}
-
+	
 /* 
-	private void CallFBLogin()
-	{
-		FB.LogInWithReadPermissions(new List<string>() { "public_profile", "email", "user_friends" }, this.HandleResult);
-	}
-
 	private void CallFBLoginForPublish()
 	{
 		// It is generally good behavior to split asking for read and publish

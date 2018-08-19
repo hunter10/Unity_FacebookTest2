@@ -67,6 +67,7 @@
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\GraphRequest.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\MainMenu.cs" />
      <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\Pay.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\HTTPClient.cs" />
      <Compile Include="Assets\Scripts\LogInController.cs" />
      <Compile Include="Assets\Scripts\UserSingleton.cs" />
@@ -282,11 +283,11 @@
  <Reference Include="UnityEngine.SpatialTracking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>/Users/insungjung/Library/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
+ <Reference Include="Facebook.Unity">
+ <HintPath>/Users/insungjung/Work/Unity_HttpModule_Test/Assets/FacebookSDK/Plugins/Facebook.Unity.dll</HintPath>
  </Reference>
- <Reference Include="UnityEngine.StandardEvents">
- <HintPath>/Users/insungjung/Library/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
+ <Reference Include="Facebook.Unity.Settings">
+ <HintPath>/Users/insungjung/Work/Unity_HttpModule_Test/Assets/FacebookSDK/Plugins/Settings/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="Facebook.Unity.Gameroom">
  <HintPath>/Users/insungjung/Work/Unity_HttpModule_Test/Assets/FacebookSDK/Plugins/Gameroom/Facebook.Unity.Gameroom.dll</HintPath>
@@ -294,11 +295,11 @@
  <Reference Include="FacebookNamedPipeClient">
  <HintPath>/Users/insungjung/Work/Unity_HttpModule_Test/Assets/FacebookSDK/Plugins/Gameroom/FacebookNamedPipeClient.dll</HintPath>
  </Reference>
- <Reference Include="Facebook.Unity">
- <HintPath>/Users/insungjung/Work/Unity_HttpModule_Test/Assets/FacebookSDK/Plugins/Facebook.Unity.dll</HintPath>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>/Users/insungjung/Library/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
  </Reference>
- <Reference Include="Facebook.Unity.Settings">
- <HintPath>/Users/insungjung/Work/Unity_HttpModule_Test/Assets/FacebookSDK/Plugins/Settings/Facebook.Unity.Settings.dll</HintPath>
+ <Reference Include="UnityEngine.StandardEvents">
+ <HintPath>/Users/insungjung/Library/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>

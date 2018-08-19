@@ -15,9 +15,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 1845301009134091
+  - 1543075282463661
   appLabels:
-  - App Name
+  - Girl Game Test
   cookie: 1
   logging: 1
   status: 1
