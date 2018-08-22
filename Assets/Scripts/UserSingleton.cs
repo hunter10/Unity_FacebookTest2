@@ -96,13 +96,23 @@ public class UserSingleton : MonoBehaviour {
 	{
 		CallFBLogin(callback);
 	}
-	 private void CallFBLogin(Action<bool, string> callback)
+	 private void CallFBLogin(Action<bool, string> callback, int retryCount=0)
 	 {
 		//FB.LogInWithReadPermissions(new List<string>() { "public_profile", "user_friends" }, this.HandleResult);
 		  
 		 FB.LogInWithReadPermissions(new List<string>() { "public_profile", "email", "user_friends" }, delegate (ILoginResult result){
+			
+			if(result.Error != null && retryCount >= 3){
+				Debug.LogError("Auth Error : " + result.Error);
+				callback(false, result.Error);
+				return;
+			}
+			
 			if(result.Error != null){
-				Debug.Log("Auth Error : " + result.Error);
+				Debug.LogError("Auth Error : " + result.Error);
+				retryCount = retryCount + 1;
+				CallFBLogin(callback, retryCount);
+				return;
 			}
 			else{
 				if(FB.IsLoggedIn){
@@ -112,6 +122,8 @@ public class UserSingleton : MonoBehaviour {
 					var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
 					JSONObject obj = JSONObject.Parse(aToken.ToJson());
 					
+					bool is_logged_in = obj["is_logged_in"].Boolean;
+
 					// 페이스북 기본 정보들을 UserSingleton에 저장합니다.
 					UserSingleton.Instance.FacebookID = obj["user_id"].Str;
 					UserSingleton.Instance.FacebookAccessToken = obj["access_token"].Str;
@@ -128,6 +140,13 @@ public class UserSingleton : MonoBehaviour {
 				}
 			}
 		 });
+	 }
+
+	 public void LoadFacebookMe(Action<bool, string> callback, int retryCount=0)
+	 {
+		 //FB.API("/me", HttpMethod.GET, delegate(FBResult result){
+
+		 //});
 	 }
 
 	protected void HandleResult(IResult result)
